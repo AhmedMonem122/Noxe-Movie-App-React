@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import toast from "react-hot-toast";
-import useAuth from "../hooks/use-auth";
+import useAuth from "../../hooks/use-auth";
 
 const Login = () => {
   const { saveUserData } = useAuth();
