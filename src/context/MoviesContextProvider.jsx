@@ -4,16 +4,29 @@ import { API_KEY } from "../api/axios";
 
 function MoviesContextProvider({ children }) {
   const [movies, setMovies] = useState([]);
+  const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [pageCount, setPageCount] = useState(0);
   const [searchPageQuery, setSearchPageQuery] = useState("");
 
   // Get All Movies
-  const getAllMovies = async () => {
+  const getAllTrendingMovies = async () => {
     setIsLoading(true);
     const res = await axios.get(`/trending/movie/week?api_key=${API_KEY}`);
 
     console.log(res);
+    setIsLoading(false);
+    setMovies(res.data.results);
+    setPageCount(res.data.total_pages);
+  };
+
+  // Get All Movies
+  const getAllMovies = async () => {
+    setIsLoading(true);
+    const res = await axios.get(
+      `/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${API_KEY}`
+    );
+
     setIsLoading(false);
     setMovies(res.data.results);
     setPageCount(res.data.total_pages);
@@ -25,20 +38,22 @@ function MoviesContextProvider({ children }) {
       getAllMovies();
     } else {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=2dc4f3b7280c70e5009487448e8c74f4&query=${query}`
+        `/search/movie?api_key=${API_KEY}&query=${query}`
       );
       setMovies(res.data.results);
       setPageCount(res.data.total_pages);
-      searchPageQuery(query);
+      setSearchPageQuery(query);
     }
   };
 
   // Get Current Page
   const getPage = async (page) => {
+    setIsLoading(true);
     const res = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=2dc4f3b7280c70e5009487448e8c74f4`
+      `/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${API_KEY}`
     );
 
+    setIsLoading(false);
     setMovies(res.data.results);
     setPageCount(res.data.total_pages);
   };
@@ -46,9 +61,12 @@ function MoviesContextProvider({ children }) {
   // Get Search Pages
   const getSearchPages = async (page = 1, query = "") => {
     if (query !== "") {
+      setIsLoading(true);
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=2dc4f3b7280c70e5009487448e8c74f4&page=${page}&query=${query}`
+        `/search/movie?api_key=${API_KEY}&page=${page}&query=${query}`
       );
+
+      setIsLoading(false);
       setMovies(res.data.results);
       setPageCount(res.data.total_pages);
 
@@ -56,6 +74,14 @@ function MoviesContextProvider({ children }) {
     } else if (query === "") {
       setSearchPageQuery("");
     }
+  };
+
+  const getMovieDetails = async (id) => {
+    setIsLoading(true);
+    const res = await axios.get(`/movie/${id}?api_key=${API_KEY}`);
+
+    setIsLoading(false);
+    setMovieDetails(res.data);
   };
 
   return (
@@ -69,7 +95,10 @@ function MoviesContextProvider({ children }) {
         setSearchPageQuery,
         searchPageQuery,
         isLoading,
+        getAllTrendingMovies,
         getAllMovies,
+        getMovieDetails,
+        movieDetails,
       }}
     >
       {children}

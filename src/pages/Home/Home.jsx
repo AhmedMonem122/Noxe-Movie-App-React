@@ -1,4 +1,5 @@
 import TrendingMovies from "../../components/TrendingMovies/TrendingMovies";
+import TrendingPeople from "../../components/TrendingPeople/TrendingPeople";
 import TrendingTVShows from "../../components/TrendingTVShows/TrendingTVShows";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
       <div className="row">
         <TrendingMovies />
         <TrendingTVShows />
+        <TrendingPeople />
       </div>
     </div>
   );

@@ -9,11 +9,23 @@ function TVShowsContextProvider({ children }) {
   const [searchPageQuery, setSearchPageQuery] = useState("");
 
   // Get All TV Shows
-  const getAllTVShows = async () => {
+  const getAllTrendingTVShows = async () => {
     setIsLoading(true);
     const res = await axios.get(`/trending/tv/week?api_key=${API_KEY}`);
 
     console.log(res);
+    setIsLoading(false);
+    setTVShows(res.data.results);
+    setPageCount(res.data.total_pages);
+  };
+
+  // Get All TV Shows
+  const getAllTVShows = async () => {
+    setIsLoading(true);
+    const res = await axios.get(
+      `/discover/tv?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${API_KEY}`
+    );
+
     setIsLoading(false);
     setTVShows(res.data.results);
     setPageCount(res.data.total_pages);
@@ -25,20 +37,26 @@ function TVShowsContextProvider({ children }) {
       getAllTVShows();
     } else {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=2dc4f3b7280c70e5009487448e8c74f4&query=${query}`
+        `/search/tv?api_key=${API_KEY}&query=${query}`
       );
-      searchTVShows(res.data.results);
+
+      console.log(res);
+      setTVShows(res.data.results);
       setPageCount(res.data.total_pages);
-      searchPageQuery(query);
+      setSearchPageQuery(query);
     }
   };
 
   // Get Current Page
   const getPage = async (page) => {
+    setIsLoading(true);
     const res = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=2dc4f3b7280c70e5009487448e8c74f4`
+      `/discover/tv?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${API_KEY}`
     );
 
+    console.log(res);
+
+    setIsLoading(false);
     setTVShows(res.data.results);
     setPageCount(res.data.total_pages);
   };
@@ -46,10 +64,14 @@ function TVShowsContextProvider({ children }) {
   // Get Search Pages
   const getSearchPages = async (page = 1, query = "") => {
     if (query !== "") {
+      setIsLoading(true);
       const res = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=2dc4f3b7280c70e5009487448e8c74f4&page=${page}&query=${query}`
+        `/search/tv?api_key=${API_KEY}&page=${page}&query=${query}`
       );
-      searchTVShows(res.data.results);
+
+      console.log(res);
+      setIsLoading(false);
+      setTVShows(res.data.results);
       setPageCount(res.data.total_pages);
 
       setSearchPageQuery(query);
@@ -69,6 +91,7 @@ function TVShowsContextProvider({ children }) {
         setSearchPageQuery,
         searchPageQuery,
         isLoading,
+        getAllTrendingTVShows,
         getAllTVShows,
       }}
     >

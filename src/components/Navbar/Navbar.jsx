@@ -58,24 +58,24 @@ const Navbar = () => {
           {localStorage.getItem("userToken") && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" href="/">
+                <NavLink className="nav-link active" to="/">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/movies">
+                <NavLink className="nav-link" to="/movies">
                   Movies
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/tv">
+                <NavLink className="nav-link" to="/tv">
                   TvShow
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/people">
+                <NavLink className="nav-link" to="/people">
                   People
-                </a>
+                </NavLink>
               </li>
             </ul>
           )}

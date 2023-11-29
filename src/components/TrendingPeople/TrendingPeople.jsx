@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from "react";
-import useTVShows from "../../hooks/use-tv-shows";
-import TrendingTVShow from "./TrendingTVShow";
+import usePeople from "../../hooks/use-people";
+import TrendingPerson from "./TrendingPerson";
 
-const TrendingTVShows = () => {
-  const { tvShows, isLoading, getAllTrendingTVShows } = useTVShows();
+const TrendingPeople = () => {
+  const { people, isLoading, getAllTrendingPeople } = usePeople();
 
   useEffect(() => {
-    getAllTrendingTVShows();
+    getAllTrendingPeople();
   }, []);
 
   return (
@@ -24,20 +24,20 @@ const TrendingTVShows = () => {
           <div>
             <div className="border-line w-25 mb-3"></div>
             <h2 className="text-white">
-              Trending TV shows
-              <br /> to watch now!
+              Trending people
+              <br /> to watch Right now
             </h2>
-            <p className="text-white">Most watched TV shows today</p>
+            <p className="text-white">Trending people today</p>
             <div className="border-line mt-3"></div>
           </div>
         </div>
       )}
 
-      {tvShows.slice(0, 10).map((tv) => {
-        return <TrendingTVShow key={tv.id} {...tv} />;
+      {people.slice(0, 10).map((person) => {
+        return <TrendingPerson key={person.id} {...person} />;
       })}
     </Fragment>
   );
 };
 
-export default TrendingTVShows;
+export default TrendingPeople;

@@ -1,4 +1,4 @@
-const TrendingTVShow = ({ id, poster_path, title, vote_average }) => {
+const TrendingTVShow = ({ id, poster_path, name, vote_average }) => {
   return (
     <div className=" col-md-3 gy-5 mx-auto">
       <a className=" text-white" href="/movies/872585">
@@ -13,12 +13,12 @@ const TrendingTVShow = ({ id, poster_path, title, vote_average }) => {
             <img
               className="w-100 "
               src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-              alt={title}
+              alt={name}
             />
           </div>
         </div>
         <div className=" text-center p-3">
-          <h6 className="mt-3  p-2  text-ellipsis">{title}</h6>
+          <h6 className="mt-3  p-2  text-ellipsis">{name}</h6>
         </div>
       </a>
     </div>

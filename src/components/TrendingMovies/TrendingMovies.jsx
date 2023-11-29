@@ -3,10 +3,10 @@ import TrendingMovie from "./TrendingMovie";
 import useMovies from "../../hooks/use-movies";
 
 const TrendingMovies = () => {
-  const { movies, isLoading, getAllMovies } = useMovies();
+  const { movies, isLoading, getAllTrendingMovies } = useMovies();
 
   useEffect(() => {
-    getAllMovies();
+    getAllTrendingMovies();
   }, []);
 
   return (

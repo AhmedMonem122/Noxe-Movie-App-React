@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const TrendingMovie = ({ id, poster_path, title, vote_average }) => {
+const Movie = ({ id, poster_path, title, vote_average }) => {
   return (
     <div className=" col-md-3 gy-5 mx-auto">
       <Link className=" text-white" to={`/movies/${id}`}>
@@ -27,4 +27,4 @@ const TrendingMovie = ({ id, poster_path, title, vote_average }) => {
   );
 };
 
-export default TrendingMovie;
+export default Movie;
