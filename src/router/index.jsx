@@ -13,18 +13,75 @@ import MoviesPage from "../pages/Movies/Movies";
 import TVShowsPage from "../pages/TVShows/TVShows";
 import PeoplePage from "../pages/People/People";
 import MovieDetails from "../components/Movies/MovieDetails";
+import TVShowDetails from "../components/TVShows/TVShowDetails";
+import PersonDetails from "../components/People/PersonDetails";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import NotFound from "../components/NotFound/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Fragment>
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Home />} />
-        <Route path="movies" element={<MoviesPage />} />
-        <Route path="movies/:id" element={<MovieDetails />} />
-        <Route path="tv" element={<TVShowsPage />} />
-        <Route path="people" element={<PeoplePage />} />
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="movies"
+          element={
+            <ProtectedRoute>
+              <MoviesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="tv"
+          element={
+            <ProtectedRoute>
+              <TVShowsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="people"
+          element={
+            <ProtectedRoute>
+              <PeoplePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="movies/:id"
+          element={
+            <ProtectedRoute>
+              <MovieDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="tv/:id"
+          element={
+            <ProtectedRoute>
+              <TVShowDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="people/:id"
+          element={
+            <ProtectedRoute>
+              <PersonDetails />
+            </ProtectedRoute>
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Fragment>
   )

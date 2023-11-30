@@ -105,6 +105,13 @@ a {
   opacity: 0.7;
 }
 
+@media (max-width: 576px) {
+  .card-layer {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
 .navbar {
   background-color: #000;
 }
@@ -149,4 +156,14 @@ a {
   --bs-pagination-hover-border-color: #0dcaf0 !important;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.img-details {
+  height: 500px;
+  object-fit: contain;
+}
+
+.notFound {
+  font-size: 120px;
+  font-weight: 700;
 }

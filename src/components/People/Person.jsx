@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const Person = ({ id, profile_path, name }) => {
   return (
     <div className=" col-md-3 gy-5 mx-auto">
-      <a className=" text-white" href="/movies/872585">
+      <Link className=" text-white" to={`/people/${id}`}>
         <div className=" position-relative card-layer ">
           <div className="layer position-absolute cursor-pointer text-white d-flex align-items-center justify-content-center ">
             <h5 className=" fw-bolder">Click to see more</h5>
@@ -17,7 +19,7 @@ const Person = ({ id, profile_path, name }) => {
         <div className=" text-center p-3">
           <h6 className="mt-3  p-2  text-ellipsis">{name}</h6>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

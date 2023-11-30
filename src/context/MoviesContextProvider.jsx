@@ -14,7 +14,6 @@ function MoviesContextProvider({ children }) {
     setIsLoading(true);
     const res = await axios.get(`/trending/movie/week?api_key=${API_KEY}`);
 
-    console.log(res);
     setIsLoading(false);
     setMovies(res.data.results);
     setPageCount(res.data.total_pages);

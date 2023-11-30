@@ -4,6 +4,7 @@ import { API_KEY } from "../api/axios";
 
 function PeopleContextProvider({ children }) {
   const [people, setPeople] = useState([]);
+  const [personDetails, setPersonDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [pageCount, setPageCount] = useState(0);
   const [searchPageQuery, setSearchPageQuery] = useState("");
@@ -13,7 +14,6 @@ function PeopleContextProvider({ children }) {
     setIsLoading(true);
     const res = await axios.get(`/trending/person/week?api_key=${API_KEY}`);
 
-    console.log(res);
     setIsLoading(false);
     setPeople(res.data.results);
     setPageCount(res.data.total_pages);
@@ -58,6 +58,14 @@ function PeopleContextProvider({ children }) {
     }
   };
 
+  const getPersonDetails = async (id) => {
+    setIsLoading(true);
+    const res = await axios.get(`/person/${id}?api_key=${API_KEY}`);
+
+    setIsLoading(false);
+    setPersonDetails(res.data);
+  };
+
   return (
     <PeopleContext.Provider
       value={{
@@ -70,6 +78,8 @@ function PeopleContextProvider({ children }) {
         searchPageQuery,
         isLoading,
         getAllTrendingPeople,
+        getPersonDetails,
+        personDetails,
       }}
     >
       {children}
