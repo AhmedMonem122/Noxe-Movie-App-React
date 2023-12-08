@@ -12,7 +12,7 @@ const TrendingTVShows = () => {
   return (
     <Fragment>
       {isLoading ? (
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center my-5">
           <span
             className="spinner-border spinner-border-sm "
             role="status"

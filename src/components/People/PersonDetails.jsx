@@ -14,7 +14,7 @@ const PersonDetails = () => {
   return (
     <Fragment>
       {isLoading ? (
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center mt-100 vh-100">
           <span
             className="spinner-border spinner-border-sm "
             role="status"
